@@ -1,0 +1,196 @@
+{
+  "name": "vbe-decoder",
+  "displayName": "VBE Decoder",
+  "description": "VSCode extension to open SMB shares, local files, and decode VBE (Visual Basic Encoded) files",
+  "version": "1.0.0",
+  "publisher": "ZephrFish",
+  "author": {
+    "name": "ZephrFish"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZephrFish/VSC-VBEDecoder"
+  },
+  "bugs": {
+    "url": "https://github.com/ZephrFish/VSC-VBEDecoder/issues"
+  },
+  "homepage": "https://github.com/ZephrFish/VSC-VBEDecoder#readme",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Data Science"
+  ],
+  "keywords": [
+    "vbe",
+    "vbscript",
+    "decoder",
+    "smb",
+    "file-system"
+  ],
+  "activationEvents": [
+    "onFileSystem:smb",
+    "onLanguage:vbscript",
+    "onCommand:vbeDecoder.openSMB",
+    "onCommand:vbeDecoder.decodeVBE",
+    "onCommand:vbeDecoder.decodeVBEContent",
+    "onCommand:vbeDecoder.openLocalFile"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vbeDecoder.openSMB",
+        "title": "Open SMB Share",
+        "category": "VBE Decoder",
+        "icon": "$(server)"
+      },
+      {
+        "command": "vbeDecoder.decodeVBE",
+        "title": "Decode VBE File",
+        "category": "VBE Decoder",
+        "icon": "$(lock)"
+      },
+      {
+        "command": "vbeDecoder.decodeVBEContent",
+        "title": "Decode VBE Content",
+        "category": "VBE Decoder",
+        "icon": "$(unlock)"
+      },
+      {
+        "command": "vbeDecoder.openLocalFile",
+        "title": "Open Local File",
+        "category": "VBE Decoder",
+        "icon": "$(file)"
+      },
+      {
+        "command": "vbeDecoder.toggleSplitPane",
+        "title": "Toggle Decoded Split Pane",
+        "category": "VBE Decoder",
+        "icon": "$(split-horizontal)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "vbeDecoder.decodeVBE",
+          "when": "resourceExtname == .vbe",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "vbeDecoder.decodeVBEContent",
+          "when": "editorHasSelection",
+          "group": "1_modification"
+        },
+        {
+          "command": "vbeDecoder.toggleSplitPane",
+          "when": "resourceExtname == .vbe || resourceExtname == .vbs",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "vbeDecoder.toggleSplitPane",
+          "when": "resourceExtname == .vbe",
+          "group": "navigation"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "vbscript",
+        "aliases": [
+          "VBScript",
+          "vbscript"
+        ],
+        "extensions": [
+          ".vbs",
+          ".vbe"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "configuration": {
+      "title": "VBE Decoder",
+      "properties": {
+        "vbeDecoder.autoDecodeInPane": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically decode VBE files in a split pane when opened"
+        },
+        "vbeDecoder.autoPromptDecode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show prompt to decode VBE files when opened"
+        },
+        "vbeDecoder.splitPanePosition": {
+          "type": "string",
+          "enum": [
+            "beside",
+            "below"
+          ],
+          "default": "beside",
+          "description": "Position of the decoded content pane"
+        },
+        "vbeDecoder.syncScrolling": {
+          "type": "boolean",
+          "default": false,
+          "description": "Synchronize scrolling between original and decoded views"
+        },
+        "vbeDecoder.smbConnections": {
+          "type": "array",
+          "default": [],
+          "description": "Saved SMB connection configurations",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Connection name"
+              },
+              "host": {
+                "type": "string",
+                "description": "SMB server hostname or IP"
+              },
+              "share": {
+                "type": "string",
+                "description": "Share name"
+              },
+              "username": {
+                "type": "string",
+                "description": "Username for authentication"
+              },
+              "domain": {
+                "type": "string",
+                "description": "Domain for authentication"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && mocha test/**/*.test.js",
+    "test:coverage": "npm run compile && nyc mocha test/**/*.test.js",
+    "test:watch": "mocha test/**/*.test.js --watch"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "chai": "^5.2.1",
+    "mocha": "^11.7.1",
+    "nyc": "^17.1.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@marsaud/smb2": "^0.18.0"
+  }
+}
