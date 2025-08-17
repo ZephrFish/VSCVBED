@@ -1,225 +1,174 @@
-# VBE Decoder - VSCode Extension
+# VBE Decoder for VSCode
 
-A powerful VSCode extension that provides seamless access to SMB shares, local files, and decoding of VBE (Visual Basic Encoded) files directly within the editor.
+## TL;DR
 
-![VBE Decoder](https://img.shields.io/badge/VSCode-Extension-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-4.9+-blue)
-![Node.js](https://img.shields.io/badge/Node.js-16+-green)
+A VSCode extension that decodes VBE (Visual Basic Encoded) files and provides seamless SMB share access. Open encoded VBScript files, view the decoded content side-by-side, and work with network shares as if they were local folders.
 
-## 🚀 Features
+## Overview
 
-### 🔓 VBE Decoding
-- **Automatic Split Pane**: Automatically shows decoded content in a split pane when opening VBE files
-- **Automatic Detection**: Automatically detects VBE encoded content in files
-- **Context Menu Integration**: Right-click on .vbe or .vbs files to decode
-- **Selected Text Decoding**: Decode VBE content from selected text in any file
-- **Real-time Processing**: Fast decoding using optimized TypeScript algorithms
-- **Save Decoded Files**: Option to save decoded content as .vbs files
-- **Toggle Split View**: Quickly toggle between split and single pane views
-- **Synchronized Scrolling**: Optional synchronized scrolling between original and decoded views
+VBE Decoder brings comprehensive Visual Basic Script support to VSCode, handling both encoded and standard VBScript files whilst providing native SMB network share integration. The extension automatically detects and decodes VBE content, making it invaluable for security analysis, legacy code recovery, and systems administration.
 
-### 🌐 SMB Share Support
-- **Direct SMB Access**: Browse and edit files on SMB shares as if they were local
-- **Connection Management**: Save and reuse SMB connection configurations
-- **Secure Authentication**: Support for domain authentication
-- **File System Integration**: Full VSCode file system provider implementation
-- **Workspace Integration**: Add SMB shares directly to your workspace
+## Key Features
 
-### 📁 Local File Access
-- **Multi-file Selection**: Open multiple files simultaneously
-- **Format Support**: Support for .vbe, .vbs, .txt, and all file types
-- **Auto-decode Prompt**: Automatically offers to decode VBE files when opened
+### VBE Decoding
+- Automatic detection and decoding of VBE encoded content
+- Split-pane view showing original and decoded content side-by-side
+- Context menu integration for quick decoding
+- Selected text decoding from any file type
+- Batch processing of multiple files
 
-### 🎨 Visual Enhancements
-- **File Decorations**: Visual indicators for VBE files in the explorer
-- **Syntax Highlighting**: VBScript language support with proper highlighting
-- **Command Palette**: Easy access to all features via command palette
+### SMB Share Integration
+- Direct access to SMB/CIFS network shares within VSCode
+- Saved connection profiles for quick access
+- Full file system provider implementation
+- Secure authentication with domain support
 
-## 📦 Installation
+### File Management
+- Multi-file selection and processing
+- Automatic format detection
+- Configurable decoding behaviour
+- Export decoded content to standard VBS files
 
-### From VSIX Package
-1. Download the `.vsix` file from the releases
-2. Open VSCode
-3. Go to Extensions view (Ctrl+Shift+X)
-4. Click the "..." menu and select "Install from VSIX..."
-5. Select the downloaded `.vsix` file
+## Installation
 
-### From Source
-1. Clone this repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Compile the extension:
-   ```bash
-   npm run compile
-   ```
-4. Press F5 to run the extension in development mode
+### Prerequisites
+- VSCode version 1.74.0 or higher
+- Node.js 16.x or higher (for development)
 
-## 🛠️ Usage
+### Installing the Extension
+
+**From VSIX Package:**
+1. Download the latest `.vsix` file from releases
+2. Open VSCode and navigate to the Extensions view (Ctrl+Shift+X)
+3. Click the menu icon and select "Install from VSIX..."
+4. Select the downloaded file
+
+**From Source:**
+```bash
+git clone https://github.com/ZephrFish/VSC-VBEDecoder
+cd VSC-VBEDecoder
+npm install
+npm run compile
+```
+Press F5 in VSCode to launch the extension in development mode.
+
+## Usage Guide
 
 ### Decoding VBE Files
 
-#### Method 1: Context Menu
-1. Right-click on a `.vbe` or `.vbs` file in the explorer
-2. Select "Decode VBE File"
-3. The decoded content will open in a new tab
+**Using the Context Menu:**
+Right-click any `.vbe` file in the explorer and select "Decode VBE File". The decoded content opens automatically in a new editor tab.
 
-#### Method 2: Command Palette
-1. Open Command Palette (Ctrl+Shift+P)
-2. Type "VBE Decoder: Decode VBE File"
-3. Select the file to decode
+**Using the Command Palette:**
+Press Ctrl+Shift+P, type "VBE Decoder: Decode VBE File", and select your target file.
 
-#### Method 3: Selected Text
-1. Select VBE encoded text in any editor
-2. Right-click and select "Decode VBE Content"
-3. The decoded content will open in a new tab
+**Decoding Selected Text:**
+Highlight VBE encoded text in any editor, right-click, and choose "Decode VBE Content".
 
-### Connecting to SMB Shares
+### Working with SMB Shares
 
-#### Method 1: Command Palette
-1. Open Command Palette (Ctrl+Shift+P)
-2. Type "VBE Decoder: Open SMB Share"
-3. Enter connection details:
-   - **Host**: SMB server hostname or IP address
-   - **Share**: Share name
-   - **Username**: Authentication username
-   - **Password**: Authentication password
-   - **Domain**: Domain (optional)
+**Connecting to a Share:**
+1. Open the Command Palette (Ctrl+Shift+P)
+2. Run "VBE Decoder: Open SMB Share"
+3. Enter your connection details:
+   - Server hostname or IP address
+   - Share name
+   - Username and password
+   - Domain (if applicable)
 
-#### Method 2: Saved Connections
-1. Use a previously saved connection
-2. Only password needs to be entered
+The share appears in your workspace and behaves like a local folder.
 
-### Opening Local Files
-1. Open Command Palette (Ctrl+Shift+P)
-2. Type "VBE Decoder: Open Local File"
-3. Select files to open
-4. VBE files will automatically prompt for decoding
+**Managing Connections:**
+Frequently used connections can be saved (without passwords) for quick access. Select from saved connections when opening shares, entering only your password.
 
-## ⚙️ Configuration
+## Configuration
 
-### Extension Settings
+Configure the extension through VSCode settings:
 
 ```json
 {
-  "vbeDecoder.autoDecodeInPane": true,        // Auto-decode VBE files in split pane
-  "vbeDecoder.autoPromptDecode": true,        // Show decode prompt when opening VBE files
-  "vbeDecoder.splitPanePosition": "beside",   // Position of decoded pane: "beside" or "below"
-  "vbeDecoder.syncScrolling": false,          // Synchronize scrolling between panes
-  "vbeDecoder.smbConnections": [
-    {
-      "name": "My Server",
-      "host": "192.168.1.100",
-      "share": "shared_folder",
-      "username": "user",
-      "domain": "WORKGROUP"
-    }
-  ]
+  "vbeDecoder.autoDecodeInPane": true,
+  "vbeDecoder.autoPromptDecode": true,
+  "vbeDecoder.splitPanePosition": "beside",
+  "vbeDecoder.syncScrolling": false,
+  "vbeDecoder.smbConnections": []
 }
 ```
 
-### Workspace Configuration
-Add SMB shares to your workspace settings:
+**Settings Explained:**
+- `autoDecodeInPane`: Automatically decode VBE files in split view when opened
+- `autoPromptDecode`: Show decode prompt for VBE files
+- `splitPanePosition`: Position decoded content "beside" or "below" original
+- `syncScrolling`: Synchronise scrolling between original and decoded panes
+- `smbConnections`: Saved SMB connection profiles (passwords excluded)
 
-```json
-{
-  "folders": [
-    {
-      "name": "SMB Share",
-      "uri": "smb://192.168.1.100/shared_folder/"
-    }
-  ]
-}
+## Technical Information
+
+### VBE Decoding Algorithm
+
+The extension implements the complete VBE decoding specification:
+- Magic number processing with proper offset handling
+- 108-element character transformation table
+- 64-element combination switching array
+- Special character sequence processing
+- Invalid byte filtering
+
+### Security Considerations
+
+- Passwords are never stored in configuration files
+- Sensitive data is cleared from memory after use
+- All network communication uses SMB2 protocol
+- Input validation prevents injection attacks
+
+## Commands Reference
+
+| Command | Description |
+|---------|-------------|
+| `vbeDecoder.openSMB` | Connect to SMB share |
+| `vbeDecoder.decodeVBE` | Decode VBE file |
+| `vbeDecoder.decodeVBEContent` | Decode selected text |
+| `vbeDecoder.openLocalFile` | Open local file with decode option |
+| `vbeDecoder.toggleSplitPane` | Toggle split view for decoded content |
+
+## Troubleshooting
+
+### SMB Connection Issues
+Check network connectivity and firewall settings. Ensure SMB2 is enabled on the target server. Verify credentials and domain information are correct.
+
+### Decoding Problems
+Confirm the file contains valid VBE encoded content. Check for the characteristic pattern markers. Ensure the file hasn't been corrupted during transfer.
+
+### Extension Not Loading
+Verify VSCode version compatibility. Check the Output panel for error messages. Ensure all dependencies are properly installed.
+
+## Development
+
+### Building from Source
+```bash
+npm install        # Install dependencies
+npm run compile    # Compile TypeScript
+npm test          # Run tests
+npm run watch     # Watch mode for development
 ```
 
-## 📋 Commands
+### Project Structure
+- `src/` - TypeScript source files
+- `out/` - Compiled JavaScript
+- `test/` - Test suite
+- `package.json` - Extension manifest
 
-| Command | Description | Keyboard Shortcut |
-|---------|-------------|-------------------|
-| `vbeDecoder.openSMB` | Open SMB Share | - |
-| `vbeDecoder.decodeVBE` | Decode VBE File | - |
-| `vbeDecoder.decodeVBEContent` | Decode Selected VBE Content | - |
-| `vbeDecoder.openLocalFile` | Open Local File | - |
-| `vbeDecoder.toggleSplitPane` | Toggle Decoded Split Pane | - |
+## Contributing
 
-## 🔧 VBE Decoding Algorithm
+Contributions are welcome. Please fork the repository, create a feature branch, and submit a pull request with your changes. Ensure all tests pass and follow the existing code style.
 
-This extension implements the complete VBE decoding algorithm, including:
+## Licence
 
-- **Magic Number Processing**: Handles the decoding offset (9)
-- **Character Mapping**: Uses the complete 108-element decoding table
-- **Combination Switching**: Implements the 64-element combination array
-- **String Replacements**: Processes special character sequences (@&, @#, @*, @!, @)
-- **Byte Filtering**: Excludes bad bytes (60, 62, 64)
-- **Pattern Detection**: Regex pattern matching for VBE content (`#@~^......==...==^#~@`)
+MIT Licence - see the [LICENSE](LICENSE) file for details.
 
-### Technical Details
+## Acknowledgements
 
-The decoder processes VBE files by:
-1. Extracting encoded sections using regex patterns
-2. Applying character replacements for known sequences
-3. Using lookup tables for character transformation
-4. Implementing combination switching for proper decoding
-5. Reconstructing the original VBScript code
-
-## 🔒 Security Considerations
-
-- **Password Storage**: SMB passwords are never saved in configuration
-- **Memory Management**: Sensitive data is cleared from memory after use
-- **Connection Security**: Uses secure SMB2 protocol
-- **Input Validation**: All user inputs are validated before processing
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-#### SMB Connection Fails
-- Verify network connectivity to the SMB server
-- Check firewall settings on both client and server
-- Ensure SMB2 protocol is enabled on the server
-- Verify username, password, and domain are correct
-
-#### VBE Decoding Fails
-- Ensure the file contains valid VBE encoded content
-- Check the VBE pattern format: `#@~^......==...==^#~@`
-- Verify the file is not corrupted
-
-#### Extension Not Loading
-- Check VSCode version compatibility (1.74.0+)
-- Verify all dependencies are installed
-- Check the Output panel for error messages
-
-### Debug Mode
-Enable debug logging in the Output panel:
-1. Open Output panel (View → Output)
-2. Select "VBE Decoder" from the dropdown
-3. Monitor log messages for troubleshooting
-
-## 📚 References
-
-- [VSCode Extension API](https://code.visualstudio.com/api)
-- [SMB2 Protocol](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb2/)
-- [VBScript Encoding Format](https://github.com/unixfreaxjp/vbe-decoder)
-
-## 🙏 Acknowledgments
-
-- Original VBE decoding algorithm inspiration from various security research
-- VSCode extension development community
-- SMB2 protocol implementation contributors
+Built on the foundation of security research into VBE encoding formats and the excellent VSCode extension API. Special thanks to the SMB2 protocol implementation contributors.
 
 ---
 
-**Made with ❤️ for the VSCode community**
+For bug reports and feature requests, please use the [GitHub Issues](https://github.com/ZephrFish/VSC-VBEDecoder/issues) page.
