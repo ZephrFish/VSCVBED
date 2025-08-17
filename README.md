@@ -157,18 +157,3 @@ npm run watch     # Watch mode for development
 - `test/` - Test suite
 - `package.json` - Extension manifest
 
-## Contributing
-
-Contributions are welcome. Please fork the repository, create a feature branch, and submit a pull request with your changes. Ensure all tests pass and follow the existing code style.
-
-## Licence
-
-MIT Licence - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-Built on the foundation of security research into VBE encoding formats and the excellent VSCode extension API. Special thanks to the SMB2 protocol implementation contributors.
-
----
-
-For bug reports and feature requests, please use the [GitHub Issues](https://github.com/ZephrFish/VSC-VBEDecoder/issues) page.
