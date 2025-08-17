@@ -25,11 +25,17 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# Test files (optional - keep for development)
-# *.vbe
-# *.vbs
-# test-*.vbe
-# decoded-*.vbs
+# Test files directory
+test-files/
+
+# Test file patterns
+*.vbe
+*.vbs
+test-*.js
+verify-*.js
+test_*.py
+decoded-*.vbs
+original.vbs
 
 # Python
 __pycache__/
@@ -47,6 +53,10 @@ __pycache__/
 *.tmp
 *.temp
 *.bak
+
+# Documentation drafts
+*-WORKING.md
+TEST_REPORT.md
 
 # Claude
 .claude/
