@@ -8,7 +8,8 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
-test*
+test/**
+test-files/**
 *.vbe
 *.vbs
 test-*
@@ -16,5 +17,15 @@ verify-*
 decoded-*
 *.py
 original.vbs
-README-WORKING.md
+*-WORKING.md
+TEST_REPORT.md
 .claude/**
+node_modules/**
+.nyc_output/**
+coverage/**
+*.log
+.env
+.env.local
+*.tmp
+*.temp
+*.bak
